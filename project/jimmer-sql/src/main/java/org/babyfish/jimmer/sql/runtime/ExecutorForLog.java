@@ -61,7 +61,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
             return;
         }
         StringBuilder builder = new StringBuilder();
-        builder.append("Open cursor(").append(cursorId).append(')').append(REQUEST).append('\n');
+        builder.append("Open cursor(").append(cursorId).append(')').append(REQUEST).append(System.lineSeparator());
         appendPrettyRequest(
                 builder,
                 sql,
@@ -135,7 +135,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
 
         StringBuilder builder = new StringBuilder();
         if (args.closingCursorId == null) {
-            builder.append("Execute SQL").append(REQUEST).append('\n');
+            builder.append("Execute SQL").append(REQUEST).append(System.lineSeparator());
             appendPrettyRequest(
                     builder,
                     args.sql,
@@ -157,7 +157,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
         } else {
             Long currentCourseId = Cursors.currentCursorId();
             if (currentCourseId != null) {
-                builder.append("CursorId: ").append(currentCourseId).append('\n');
+                builder.append("CursorId: ").append(currentCourseId).append(System.lineSeparator());
             }
             builder.append(RESPONSE).append("Execute SQL");
         }
@@ -185,11 +185,11 @@ public class ExecutorForLog extends AbstractExecutorProxy {
         if (ctx != null) {
             builder.append("--- Business related stack trace information ---\n");
             for (StackTraceElement element : ctx.getMatchedElements()) {
-                builder.append(element).append('\n');
+                builder.append(element).append(System.lineSeparator());
             }
         }
 
-        builder.append("Purpose: ").append(purpose).append('\n');
+        builder.append("Purpose: ").append(purpose).append(System.lineSeparator());
 
         builder.append("SQL: ");
         if (variablePositions == null) {
@@ -202,7 +202,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
                     variablePositions
             );
         }
-        builder.append('\n');
+        builder.append(System.lineSeparator());
     }
 
     private static void appendPrettyResponse(
@@ -212,7 +212,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
             long millis
     ) {
         if (affectedRowCount != -1) {
-            builder.append("Affected row count: ").append(affectedRowCount).append('\n');
+            builder.append("Affected row count: ").append(affectedRowCount).append(System.lineSeparator());
         }
         if (throwable == null) {
             builder.append("JDBC response status: success\n");
@@ -347,7 +347,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
             }
 
             StringBuilder builder = new StringBuilder();
-            builder.append("Execute SQL").append(REQUEST).append('\n');
+            builder.append("Execute SQL").append(REQUEST).append(System.lineSeparator());
             appendPrettyRequest(
                     builder,
                     raw.sql(),
@@ -363,7 +363,7 @@ public class ExecutorForLog extends AbstractExecutorProxy {
                     builder.append(", ");
                 }
                 builder.append("batch-").append(i).append(": ");
-                builder.append(variableMatrix.get(i)).append('\n');
+                builder.append(variableMatrix.get(i)).append(System.lineSeparator());
             }
             appendPrettyResponse(
                     builder,
